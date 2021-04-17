@@ -31,7 +31,7 @@ class SpigotUserServiceClient(host: String, port: Int) : UserServiceClient {
     private val idCache = ConcurrentHashMap<UUID, UUID>()
     private val metadataCache = ConcurrentHashMap<UUID, PlayerMetadata>()
 
-    fun loadPlayer(playerId: UUID) {
+    fun loadPlayer(name: String, playerId: UUID) {
         val grpcPlayer = this.stub.getPlayer(GetPlayerRequest.newBuilder()
             .setIdentifier(PlayerIdentifier.newBuilder().setId(playerId.toString()).setType(TYPE).build())
             .build()
@@ -42,7 +42,9 @@ class SpigotUserServiceClient(host: String, port: Int) : UserServiceClient {
         }
 
         synchronized(this.metadataCache) {
-            this.metadataCache[playerId] = grpcPlayer.metadata.toSpigot()
+            val metadata = grpcPlayer.metadata.toSpigot()
+            metadata.username = name
+            this.metadataCache[playerId] = metadata
         }
     }
 

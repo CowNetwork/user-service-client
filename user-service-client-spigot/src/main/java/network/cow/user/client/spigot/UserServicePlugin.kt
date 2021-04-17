@@ -27,7 +27,8 @@ class UserServicePlugin : JavaPlugin(), Listener {
     @EventHandler
     private fun onPlayerPreLogin(event: AsyncPlayerPreLoginEvent) {
         val id = event.playerProfile.id ?: return
-        this.client.loadPlayer(id)
+        val name = event.playerProfile.name ?: return
+        this.client.loadPlayer(name, id)
     }
 
     @EventHandler
