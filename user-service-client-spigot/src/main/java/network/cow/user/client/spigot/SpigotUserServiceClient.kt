@@ -26,6 +26,8 @@ class SpigotUserServiceClient(host: String, port: Int) : UserServiceClient {
 
     private val stub = UserServiceGrpc.newBlockingStub(ManagedChannelBuilder.forAddress(host, port).build())
 
+    // TODO: listen for player metadata update messages over kafka
+
     private val idCache = ConcurrentHashMap<UUID, UUID>()
     private val metadataCache = ConcurrentHashMap<UUID, PlayerMetadata>()
 
