@@ -1,0 +1,4 @@
+name: UserServiceClient
+main: network.cow.user.client.spigot.UserServicePlugin
+version: 1.0.0
+author: Benedikt Wüller
